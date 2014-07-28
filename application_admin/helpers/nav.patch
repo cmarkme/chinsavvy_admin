@@ -1,0 +1,104 @@
+diff -r 1ff60683512b application_admin/helpers/navmenu_helper.php
+--- a/application_admin/helpers/navmenu_helper.php	Tue Oct 16 11:45:32 2012 +0800
++++ b/application_admin/helpers/navmenu_helper.php	Tue Oct 16 13:17:33 2012 +0800
+@@ -124,66 +124,63 @@
+
+ function get_dynamic_nav() {
+     $nav = '';
+-    $navmenu = new nav_menu('Data Entry Forms',
+-        array(array('Enquiry', "enquiries/enquiry/add", array('enquiries:writeenquiries')),//gc
+-              // array('Supplier Inbound', "enquiries/inbound/add", array('enquiries:writeinbound')),//gc
+-              array('Outbound Quotation', "enquiries/outbound/add", array('enquiries:writeoutbound')),//gc
+-              array('Commodity daily values', "exchange/dailyvalues/add", array('exchange:writedailyvalues'))//gc
++    $navmenu = new nav_menu('Enquiry &amp; Quotation',
++        array(array('New Enquiry', "enquiries/enquiry/add", array('enquiries:writeenquiries')),
++              array('New Quotation', "enquiries/outbound/add", array('enquiries:writeoutbound')),
++              array('Enquiry report', "enquiries/enquiry/browse", array('enquiries:viewenquiries')),
++              array('Quotation report', "enquiries/outbound/browse", array('enquiries:viewoutbound')),
++              array('Assigned enquiries', "enquiries/enquiry/assigned_enquiries", array('enquiries:viewassignedenquiries')),
++              array('Additional Reports', "enquiries/report", array('enquiries:viewreports')),
+         ));
+     $nav .= $navmenu->render();
+
+-    $navmenu = new nav_menu('Reports',
+-        array(array('Enquiries', "enquiries/enquiry/browse", array('enquiries:viewenquiries')),//gc
+-              // array('Supplier Reports', "enquiries/inbound/browse", array('enquiries:viewinbound')),//gc
+-              array('Outbound Quotations', "enquiries/outbound/browse", array('enquiries:viewoutbound')),//gc
+-              array('Additional Reports', "enquiries/report", array('enquiries:viewreports')),//gc
++    $navmenu = new nav_menu('Commodities',
++        array(
++              // array('Supplier Reports', "enquiries/inbound/browse", array('enquiries:viewinbound')),
++              array('Data entry', "exchange/dailyvalues/add", array('exchange:writedailyvalues')),
+               array('Metal values', "exchange/dailyvalues/metals", array('exchange:viewmetals')),
+               array('Plastic values', "exchange/dailyvalues/plastics", array('exchange:viewplastics'))
+         ));
+     $nav .= $navmenu->render();
+
+     $navmenu = new nav_menu('Documents vault',
+-        array(array('View Files', "vault/file/browse", array('vault:viewfiles')),//gc
+-              array('Upload a file', "vault/file/add", array('vault:writefiles')),//gc
++        array(array('View Files', "vault/file/browse", array('vault:viewfiles')),
++              array('Upload a file', "vault/file/add", array('vault:writefiles')),
+         ));
+     $nav .= $navmenu->render();
+
+     $navmenu = new nav_menu('Administration',
+-        array(array('User Management', "users/user", array('users:viewusers')),//gc
+-              array('Roles', "users/role/browse", array('users:editroles')),//gc
+-              array('Company Management', "company", array('site:editcompanies')),//gc
+-              // array('Public Files Management', "enquiries/files", array('enquiries:editfiles')),//gc
+-              array('Commodities', "exchange/commodity", array('exchange:editexchange')),//gc
+-              array('Exchange Markets', "exchange/market", array('exchange:editmarkets')),//gc
++        array(array('User Management', "users/user", array('users:viewusers')),
++              array('Roles', "users/role/browse", array('users:editroles')),
++              array('Company Management', "company", array('site:editcompanies')),
++              // array('Public Files Management', "enquiries/files", array('enquiries:editfiles')),
++              array('Commodities', "exchange/commodity", array('exchange:editexchange')),
++              array('Exchange Markets', "exchange/market", array('exchange:editmarkets')),
+         ));
+     $nav .= $navmenu->render();
+
+-    $navmenu = new nav_menu('Tools',
+-        array(array('Email form', "email", array('site:sendemails'))//gc
++    $navmenu = new nav_menu('Communication',
++        array(array('Email form', "email", array('site:sendemails')),
++              array('Auto-emails', "autoemails", array('site:editautoemails')),
+         ));
+     $nav .= $navmenu->render();
+
+     $navmenu = new nav_menu('Codes',
+-        array(array('Divisions', "codes/division/browse", array('codes:editdivisions')),//gc
+-              array('Customers', "codes/customer/browse", array('codes:editcustomers')),//gc
+-              array('Projects', "codes/project/browse", array('codes:editprojects')),//gc
+-              array('Products', "codes/part/browse", array('codes:editparts')),//gc
+-              array('Suppliers', "codes/supplier/browse", array('codes:editsuppliers')),//gc
+-              array('Processes', "codes/process/browse", array('codes:editprocesses')),//gc
+-              array('QC', "codes/qc/browse", array('codes:editqc'))//gc
++        array(array('Divisions', "codes/division/browse", array('codes:editdivisions')),
++              array('Customers', "codes/customer/browse", array('codes:editcustomers')),
++              array('Projects', "codes/project/browse", array('codes:editprojects')),
++              array('Products', "codes/part/browse", array('codes:editparts')),
++              array('Suppliers', "codes/supplier/browse", array('codes:editsuppliers')),
++              array('Processes', "codes/process/browse", array('codes:editprocesses')),
++              array('QC', "codes/qc/browse", array('codes:editqc'))
+         ));
+     $nav .= $navmenu->render();
+
+     $navmenu = new nav_menu('QC',
+-        array(array('Projects', "qc/project/browse", array('qc:viewprojects')),//gc
+-              array('Procedures', "qc/procedure", array('qc:viewprocedures')),//gc
+-              array('Documents', "qc/document", array('qc:viewprojects')),//gc
+-              array('Email', "qc/email", array('qc:viewprojects'))//gc
+-        ));
+-    $nav .= $navmenu->render();
+-
+-    $navmenu = new nav_menu('Assignments',
+-        array(array('Assigned enquiries', "enquiries/enquiry/assigned_enquiries", array('enquiries:viewassignedenquiries'))//gc
++        array(array('Projects', "qc/project/browse", array('qc:viewprojects')),
++              array('Procedures', "qc/procedure", array('qc:viewprocedures')),
++              array('Documents', "qc/document", array('qc:viewprojects')),
++              array('Email', "qc/email", array('qc:viewprojects'))
+         ));
+     $nav .= $navmenu->render();
+
+
