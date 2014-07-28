@@ -15,7 +15,7 @@
  *     testing
  *     production
  *
- * NOTE: If you change these, also change the error_reporting() code below
+ * E: If you change these, also change the error_reporting() code below
  *
  */
 	$domain = ltrim($_SERVER['HTTP_HOST'], 'www.');
