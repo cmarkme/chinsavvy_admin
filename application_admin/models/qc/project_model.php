@@ -197,13 +197,16 @@ class Project_Model extends MY_Model {
         $status = QC_RESULT_PASS;
 
         if ($jobs = $this->job_model->get(array('project_id' => $project_id))) {
-            foreach ($jobs as $job) {
+		    foreach ($jobs as $job) {
 
                 if ($job->result == QC_RESULT_HOLD && $status == QC_RESULT_PASS) {
-                    $status = QC_RESULT_HOLD;
-                } else if ($job->result == QC_RESULT_REJECT) {
-                    $status = QC_RESULT_REJECT;
-                    break;
+                      $status = QC_RESULT_HOLD;
+                  } else if ($job->result == QC_RESULT_REJECT) {
+                      $status = QC_RESULT_REJECT;
+                      break;
+
+
+
                 }
             }
         } else {
@@ -220,15 +223,18 @@ class Project_Model extends MY_Model {
                 $speccategory = $this->speccategory_model->get($spec->category_id);
 
                 if ($speccategory->type == QC_SPEC_CATEGORY_TYPE_QC && $speccategory->name != 'Files') {
-                    if (!($jobs = $this->job_model->get(array('project_id' => $project_id, 'category_id' => $spec->category_id)))) {
-                        return QC_RESULT_HOLD;
+                    xdebug_break();if (!($jobs = $this->job_model->get(array('project_id' => $project_id, 'category_id' => $spec->category_id)))) {
+                             if($spec->category_id != 75){
+                         return QC_RESULT_HOLD;
+                        }
+
                     }
                 }
             }
         } else {
-            return QC_RESULT_HOLD;
+            xdebug_break();return QC_RESULT_HOLD;
         }
-        return $status;
+        xdebug_break();return $status;
     }
 
     public function flag_as_changed($project_id) {
@@ -615,8 +621,9 @@ class Project_Model extends MY_Model {
         }
 
         // Update the result field if not updated for over 5 minutes
-        if ((time() - $original['revision_date']) > 300) { // 5 minute cache
-            $params['result'] = $this->project_model->get_acceptance_status($project_id);
+        
+		if ((time() - $original['revision_date']) > 300) { // 5 minute cache
+           xdebug_break(); $params['result'] = $this->project_model->get_acceptance_status($project_id);
         }
         return parent::edit($project_id, $params);
     }
