@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<root>
+		<sub_menu >
+			<menu_item function="tariff">Meetings Tariff</menu_item>
+			<menu_item function="enquiry_form">Submit Enquiry</menu_item>
+		</sub_menu>
+	</root>

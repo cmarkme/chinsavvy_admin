@@ -1,0 +1,2 @@
+<a href="#"><img src="/images/enquiry.png" alt="Outsourcing in China - Enquiry" title="" width="118" height="21" border="0" class="enquiry" /></a> 
+		<img src="/images/quote.png" alt="ChinaSavvy - Get a Quote Now" title="" width="138" height="15" class="quote" />

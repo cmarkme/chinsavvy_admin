@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<root>
+		<sub_menu >
+			<menu_item href="/home/facilities.htm">Facilities</menu_item>
+			<menu_item href="/home/location.htm">Location</menu_item>
+			<!--<menu_item href="/events.htm">Special Events</menu_item>-->
+		</sub_menu>
+	</root>
