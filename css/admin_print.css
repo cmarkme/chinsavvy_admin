@@ -1,0 +1,11 @@
+#nav, #site-info, #site-description, #crumbs, #footer, .tabs, .noprint, input[type="submit"], button, a.button {
+    display: none;
+}
+
+#content {
+    margin: 0;
+    float: none;
+}
+
+table { page-break-inside:avoid }
+tr    { page-break-inside:avoid; page-break-after:auto }
