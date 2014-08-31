@@ -223,7 +223,7 @@ class Project_Model extends MY_Model {
                 $speccategory = $this->speccategory_model->get($spec->category_id);
 
                 if ($speccategory->type == QC_SPEC_CATEGORY_TYPE_QC && $speccategory->name != 'Files') {
-                    xdebug_break();if (!($jobs = $this->job_model->get(array('project_id' => $project_id, 'category_id' => $spec->category_id)))) {
+                    if (!($jobs = $this->job_model->get(array('project_id' => $project_id, 'category_id' => $spec->category_id)))) {
                              if($spec->category_id != 75){
                          return QC_RESULT_HOLD;
                         }
