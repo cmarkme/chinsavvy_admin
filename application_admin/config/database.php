@@ -63,6 +63,13 @@ if ($domain == 'admin.chinasavvy.com') {
     $db['default']['username'] = $_SERVER['DB1_USER'];
 	$db['default']['password'] = $_SERVER['DB1_PASS'];
 	$db['default']['database'] = $_SERVER['DB1_NAME'];
+
+} elseif ($domain == 'dev.adminch.com') {
+	$db['default']['hostname'] = "localhost";
+    $db['default']['username'] = 'cmarkme';
+	$db['default']['password'] ='kathleen';
+	$db['default']['database'] = 'admin';
+
 } else {
 	die("'database.php' does not account for the domain: '$domain'");
 }

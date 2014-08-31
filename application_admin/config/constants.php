@@ -287,7 +287,7 @@ define('VAULT_FILE_TYPE_ORDER', 1);
 
 /* Paths */
 define('PATH_IMAGES_ADMIN', '/images/admin');
-define('PATH_QC_FILES', ROOTPATH.'/files/qc');
+define('PATH_QC_FILES','/files/qc');
 
 // Create a JS file on-the-fly to declare custom constants
 $constants = get_defined_constants();

@@ -26,11 +26,15 @@
 	} else if ($domain == 'chinasavvy.gopagoda.com') {
 	    define('ENVIRONMENT', 'development');
 	} else if ($domain == 'admin.chinasavvy.info') {
+		define('ENVIRONMENT', 'testing');
+	} else if ($domain == 'dev.adminch.com') {
 	    define('ENVIRONMENT', 'testing');
 	} else {
 		die("'index.php' does not account for the domain: '$domain'");
 	}
-/*
+	/*
+	 *
+	 * 
  *---------------------------------------------------------------
  * ERROR REPORTING
  *---------------------------------------------------------------
@@ -44,10 +48,12 @@ if (defined('ENVIRONMENT'))
 	switch (ENVIRONMENT)
 	{
 		case 'development':
-			error_reporting(E_ALL);
+			error_reporting(0);
 		break;
 
 		case 'testing':
+			error_reporting(E_ALL);
+			break;
 		case 'production':
 		//	error_reporting(E_ALL);
 		error_reporting(0);
