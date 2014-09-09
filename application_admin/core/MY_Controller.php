@@ -69,7 +69,7 @@ class MY_Controller extends CI_Controller {
      * @param array $additional_capabilities Additional caps for special cases, like array('edit' => 'enquiries:viewassignedenquiries')
      * @return array
      */
-    function add_action_column($subsystem, $section, $table_data, $actions_to_use=array('pdf', 'edit', 'delete'), $additional_capabilities=array()) {
+    function add_action_column($subsystem, $section, $table_data, $actions_to_use=array('pdf', 'edit', 'delete',), $additional_capabilities=array()) {
         $this->load->helper('inflector');
 
         $table_data['headings']['actions'] = 'Actions';
@@ -104,6 +104,18 @@ class MY_Controller extends CI_Controller {
                                                              'onclick' => 'return deletethis();'))
                                                  . '</a>';
                     }
+                    break;
+                case 'vault':
+                    $thislabel = (is_int($label)) ? 'Document Vault' : $label;
+                  //  if (has_capability("$subsystem:delete" . plural($section)) || (array_key_exists('delete', $additional_capabilities) && has_capability($additional_capabilities['delete']))) {
+                        $actions_array[$action] = '<a class="'.$action.'" href="/'.$controller_folder.$section.'/vault/%d" title="'.$thislabel.'">'
+                            . img(array('src' => 'images/admin/icons/file-manager.png',
+                                    'class' => 'icon',
+                                    'title' => 'Completely delete this '.$section.' and all associated records',
+                                    //'onclick' => 'return deletethis();'
+                                ))
+                            . '</a>';
+                 //   }
                     break;
                 case 'duplicate':
                     $thislabel = (is_int($label)) ? 'Duplicate' : $label;

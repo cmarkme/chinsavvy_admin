@@ -9,6 +9,9 @@
  * @package controllers
  */
 class Project extends MY_Controller {
+    var $roots = array(
+        'file' => 'files'
+    );
     function __construct() {
         parent::__construct();
         $this->load->library('form_validation');
@@ -23,6 +26,7 @@ class Project extends MY_Controller {
         $this->load->model('qc/revision_model');
         $this->load->model('qc/projectrelated_model');
         $this->load->model('qc/procedure_model');
+
     }
 
     /**
@@ -83,7 +87,7 @@ class Project extends MY_Controller {
         }
 
         if ($outputtype == 'html') {
-            $table_data = parent::add_action_column('qc', 'project', $table_data, array('edit', 'delete'));
+            $table_data = parent::add_action_column('qc', 'project', $table_data, array('edit', 'delete', 'vault'));
             $pageDetails = parent::get_ajax_table_page_details('qc', 'project', $table_data['headings'], array('pdf', 'save', 'add'));
             parent::output_ajax_table($pageDetails, $table_data, $total_records);
         } else {
@@ -91,6 +95,102 @@ class Project extends MY_Controller {
             $pageDetails = parent::get_export_page_details('project', $table_data);
             $pageDetails['widths'] = array(85, 300, 380, 135, 170, 200, 200, 200, 200, 200);
             parent::output_for_export('qc', 'project', $outputtype, $pageDetails, 'ISO-8859-1');
+        }
+    }
+    public function vault()
+    {
+        $segment_array = $this->uri->segment_array();
+        $last = $this->uri->total_segments();
+        $record_num = $this->uri->segment($last);
+
+        // first and second segments are our controller and the 'virtual root'
+        //$ConFolder = array_shift( $segment_array );
+        $controller = array_shift( $segment_array );
+        $virtual_root = array_shift( $segment_array );
+
+        if( empty( $this->roots )) exit( 'no roots defined' );
+
+        // let's check if a virtual root is choosen
+        // if this controller is the default controller, first segment is 'index'
+     //   if ( $controller == 'index' OR $virtual_root == '' ) show_404();
+
+        // let's check if a virtual root matches
+     //   if ( ! array_key_exists( $virtual_root, $this->roots )) show_404();
+
+        // build absolute path
+       $path_in_url = '';
+       // foreach ( $segment_array as $segment ) $path_in_url.= $segment.'/';
+       // $absolute_path = $this->roots[ $virtual_root ].'/'.$path_in_url;
+      //  $absolute_path = rtrim( $absolute_path ,'/' );
+
+        // is it a directory or a file ?
+        if ( is_dir( 'files/'.$record_num))
+        {
+            // we'll need this to build links
+            $this->load->helper('url');
+
+            $dirs = array();
+            $files = array();
+            // let's traverse the directory
+            if ( $handle = @opendir( 'files/'.$record_num ))
+            {
+                while ( false !== ($file = readdir( $handle )))
+                {
+                    if (( $file != "." AND $file != ".." ))
+                    {
+                        if ( is_dir( 'files/'.$record_num.'/'.$file ))
+                        {
+                            $dirs[]['name'] = $file;
+                        }
+                        else
+                        {
+                            $files[]['name'] = $file;
+                        }
+                    }
+                }
+                closedir( $handle );
+                sort( $dirs );
+                sort( $files );
+
+
+            }
+            // parent directory
+            // here to ensure it's available and the first in the array
+            if ( $path_in_url != '' )
+                array_unshift ( $dirs, array( 'name' => '..' ));
+
+            // send the view
+            $data = array(
+                'controller' => $controller,
+                'virtual_root' => $virtual_root,
+                'path_in_url' => $path_in_url,
+                'dirs' => $dirs,
+                'files' => $files,
+            );
+            $this->load->view( 'vault/browse', $data );
+        }
+        else
+        {
+            // it's not a directory, but is it a file ?
+            if ( is_file( 'files/'.$record_num ))
+            {
+                // let's serve the file
+                header ('Cache-Control: no-store, no-cache, must-revalidate');
+                header ('Cache-Control: pre-check=0, post-check=0, max-age=0');
+                header ('Pragma: no-cache');
+
+                header('Content-Description: File Transfer');
+                header('Content-Type: application/octet-stream');
+                // header('Content-Length: ' . filesize( ".$absolute_path." ));  // Modified
+                header('Content-Length: ' . filesize( 'files/'.$record_num ));
+                header('Content-Disposition: attachment; filename=' . basename( 'files/'.$record_num ));
+
+                @readfile( 'files/'.$record_num );
+            }
+            else
+            {
+                show_404();
+            }
         }
     }
 
