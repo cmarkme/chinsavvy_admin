@@ -102,7 +102,6 @@ class Project extends MY_Controller {
         $segment_array = $this->uri->segment_array();
         $last = $this->uri->total_segments();
         $record_num = $this->uri->segment($last);
-
         // first and second segments are our controller and the 'virtual root'
         //$ConFolder = array_shift( $segment_array );
         $controller = array_shift( $segment_array );
@@ -124,7 +123,7 @@ class Project extends MY_Controller {
       //  $absolute_path = rtrim( $absolute_path ,'/' );
 
         // is it a directory or a file ?
-        if ( is_dir( 'files/'.$record_num))
+        if ( is_dir( 'files/qc/'.$record_num))
         {
             // we'll need this to build links
             $this->load->helper('url');
@@ -132,13 +131,13 @@ class Project extends MY_Controller {
             $dirs = array();
             $files = array();
             // let's traverse the directory
-            if ( $handle = @opendir( 'files/'.$record_num ))
+            if ( $handle = @opendir( 'files/qc/'.$record_num ))
             {
                 while ( false !== ($file = readdir( $handle )))
                 {
                     if (( $file != "." AND $file != ".." ))
                     {
-                        if ( is_dir( 'files/'.$record_num.'/'.$file ))
+                        if ( is_dir( 'files/qc/'.$record_num.'/'.$file ))
                         {
                             $dirs[]['name'] = $file;
                         }
@@ -172,7 +171,7 @@ class Project extends MY_Controller {
         else
         {
             // it's not a directory, but is it a file ?
-            if ( is_file( 'files/'.$record_num ))
+            if ( is_file( 'files/qc/'.$record_num ))
             {
                 // let's serve the file
                 header ('Cache-Control: no-store, no-cache, must-revalidate');
@@ -185,7 +184,7 @@ class Project extends MY_Controller {
                 header('Content-Length: ' . filesize( 'files/'.$record_num ));
                 header('Content-Disposition: attachment; filename=' . basename( 'files/'.$record_num ));
 
-                @readfile( 'files/'.$record_num );
+                @readfile( 'files/qc/'.$record_num );
             }
             else
             {

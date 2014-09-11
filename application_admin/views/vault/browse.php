@@ -4,8 +4,8 @@
 <?php
 $prefix = $controller.'/'.$virtual_root.'/'.$path_in_url;
 if (!empty($dirs)) foreach( $dirs as $dir )
-    echo 'dir '.anchor($prefix.$dir['name'], $dir['name']).'<br>';
+    echo 'dir <a href="'.$file['name'].'">'.  $dir['name'].'</a><br>';
 
 if (!empty($files)) foreach( $files as $file )
-    echo anchor($prefix.$file['name'], $file['name']).'<br>';
+    echo '<a href="'.$file['name'].'">'. $file['name'].'</a><br>';
 ?>
