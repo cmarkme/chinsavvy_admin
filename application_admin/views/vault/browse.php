@@ -1,6 +1,6 @@
 <h1><?=$virtual_root?></h1>
 <h2><?='/'.$path_in_url?></h2>
-<option
+
 <?php
 $prefix = $controller.'/'.$virtual_root.'/'.$path_in_url;
 if (!empty($dirs)) foreach( $dirs as $dir )
