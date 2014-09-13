@@ -100,10 +100,12 @@ class Project extends MY_Controller {
     public function vault()
     {
         $this->load->model('qc/project_model');
-        $hashFiles=$this->project_model->get_files(1826, $type=null);
         $segment_array = $this->uri->segment_array();
         $last = $this->uri->total_segments();
         $record_num = $this->uri->segment($last);
+	$hashFiles=$this->project_model->get_files($record_num , $type=null);
+
+	
         // first and second segments are our controller and the 'virtual root'
         //$ConFolder = array_shift( $segment_array );
         $controller = array_shift( $segment_array );

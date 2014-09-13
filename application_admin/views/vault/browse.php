@@ -7,5 +7,15 @@ if (!empty($dirs)) foreach( $dirs as $dir )
     echo 'dir <a href="'.$file['name'].'">'.  $dir['name'].'</a><br>';
 
 if (!empty($files)) foreach( $files as $file )
-    echo '<a href="'.$file['name'].'">'. $file['name'].'</a><br>';
+	{
+	foreach($hashFiles as $k => $v)
+		{
+		if($v['hash']==$file['name'])
+		{
+
+    		echo '<a href="'.$file['name'].'">'. $v['file'].'</a><br>';			
+		}
+		
+		}
+	}
 ?>
