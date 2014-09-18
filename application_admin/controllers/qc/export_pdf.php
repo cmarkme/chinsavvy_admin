@@ -15,7 +15,8 @@ class Export_pdf extends MY_Controller {
 
     public function product_specs() {
         $this->load->helper('qc_pdf_helper');
-        pdf_product_specs();
+	$revision_no=$this->input->post('revision_no');
+        pdf_product_specs(NULL,$revision_no);
 
     }
 

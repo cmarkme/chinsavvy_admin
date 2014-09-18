@@ -13,7 +13,7 @@ $(document).ready(function() {
             type = match[1];
         }
 
-        $(this).siblings('input[name="revisionno"]').val(revisionno);
+        $(this).siblings('input[name="revision_no"]').val(revisionno);
 
         $.getJSON('qc/document/update_spec_categories/'+projectid+'/'+revisionno+'/'+type, function(data) {
             var categoryselect = $(revisionselect).siblings('select:first');
