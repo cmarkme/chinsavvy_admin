@@ -501,7 +501,7 @@ function pdf_product_specs($save_file=false, $spec_revision_no=null) {
         $spec_number = 1;
 
         foreach ($specs_array as $spec) {
-            if (!empty($categories) && !in_array($spec[QC_SPEC_LANGUAGE_EN]['categoryid'], $categories)) {
+            if (!empty($categories) && !in_array($spec[QC_SPEC_LANGUAGE_EN]['category_id'], $categories)) {
                 continue 2;
             }
 
