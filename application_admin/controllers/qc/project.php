@@ -193,7 +193,7 @@ class Project extends MY_Controller {
             }
             else
             {
-                show_404();
+                echo "NO FILES";
             }
         }
     }

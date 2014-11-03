@@ -197,6 +197,8 @@ class Project_Model extends MY_Model {
         $status = QC_RESULT_PASS;
 
         if ($jobs = $this->job_model->get(array('project_id' => $project_id))) {
+            $this->db->select('qc_spec_categories');
+            $this->db->where('qc_spec_categories');
 		    foreach ($jobs as $job) {
 
                 if ($job->result == QC_RESULT_HOLD && $status == QC_RESULT_PASS) {
@@ -224,9 +226,9 @@ class Project_Model extends MY_Model {
 
                 if ($speccategory->type == QC_SPEC_CATEGORY_TYPE_QC && $speccategory->name != 'Files') {
                     if (!($jobs = $this->job_model->get(array('project_id' => $project_id, 'category_id' => $spec->category_id)))) {
-                             if($spec->category_id != 75){
+
                          return QC_RESULT_HOLD;
-                        }
+
 
                     }
                 }

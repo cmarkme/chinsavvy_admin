@@ -104,6 +104,7 @@ class Job_Model extends MY_Model {
         $params = array(
             'category_id' => $category_id,
             'project_id' => $project_id,
+
             );
 
         $specs = $this->spec_model->get_with_result_data($params);

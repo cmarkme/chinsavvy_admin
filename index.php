@@ -28,7 +28,7 @@
 	} else if ($domain == 'admin.chinasavvy.info') {
 		define('ENVIRONMENT', 'testing');
 	} else if ($domain == 'dev.adminch.com') {
-	    define('ENVIRONMENT', 'testing');
+	    define('ENVIRONMENT', 'development');
 	} else {
 		die("'index.php' does not account for the domain: '$domain'");
 	}

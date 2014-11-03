@@ -53,7 +53,7 @@ class MY_Model extends CI_Model {
         $return_value = null;
 
         if ($query->num_rows == 0) {
-            xdebug_break();if (is_array($id_or_fields) && !$first_only) {
+            if (is_array($id_or_fields) && !$first_only) {
                 return array();
             } else {
                 return null;
