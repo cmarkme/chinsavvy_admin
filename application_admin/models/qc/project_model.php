@@ -197,12 +197,21 @@ class Project_Model extends MY_Model {
         $status = QC_RESULT_PASS;
 
         if ($jobs = $this->job_model->get(array('project_id' => $project_id))) {
-            $this->db->select('qc_spec_categories');
-            $this->db->where('qc_spec_categories');
+            $qc_specs_catid=$this->spec_model->get(array('project_id'=>$project_id), false, null, null);
+
+
 		    foreach ($jobs as $job) {
 
+
                 if ($job->result == QC_RESULT_HOLD && $status == QC_RESULT_PASS) {
-                      $status = QC_RESULT_HOLD;
+                    foreach($qc_specs_catid as $k => $v)
+                    {
+                        if ($v -> category_id == $job -> category_id)
+                        {
+                            $status = QC_RESULT_HOLD;
+                        }
+                    }
+
                   } else if ($job->result == QC_RESULT_REJECT) {
                       $status = QC_RESULT_REJECT;
                       break;
